@@ -1,5 +1,18 @@
 import { TennisGame } from './TennisGame';
 
+const scoreMap = {
+  0: "Love",
+  1: "Fifteen",
+  2: "Thirty",
+  3: "Forty"
+}
+
+const drawMap = {
+  0: "Love-All",
+  1: "Fifteen-All",
+  2: "Thirty-All",
+  3: "Deuce"
+}
 
 export class TennisGame1 implements TennisGame {
   private m_score1: number = 0;
@@ -23,21 +36,7 @@ export class TennisGame1 implements TennisGame {
     let score: string = '';
     let tempScore: number = 0;
     if (this.m_score1 === this.m_score2) {
-      switch (this.m_score1) {
-        case 0:
-          score = 'Love-All';
-          break;
-        case 1:
-          score = 'Fifteen-All';
-          break;
-        case 2:
-          score = 'Thirty-All';
-          break;
-        default:
-          score = 'Deuce';
-          break;
-
-      }
+      this.m_score1 = drawMap[this.m_score1]
     }
     else if (this.m_score1 >= 4 || this.m_score2 >= 4) {
       const minusResult: number = this.m_score1 - this.m_score2;
@@ -50,20 +49,7 @@ export class TennisGame1 implements TennisGame {
       for (let i = 1; i < 3; i++) {
         if (i === 1) tempScore = this.m_score1;
         else { score += '-'; tempScore = this.m_score2; }
-        switch (tempScore) {
-          case 0:
-            score += 'Love';
-            break;
-          case 1:
-            score += 'Fifteen';
-            break;
-          case 2:
-            score += 'Thirty';
-            break;
-          case 3:
-            score += 'Forty';
-            break;
-        }
+        score += scoreMap[tempScore]
       }
     }
     return score;
